@@ -1,12 +1,13 @@
-# Deploying to GitHub Pages
+# Deploying to GitHub Pages with Jekyll
 
-This guide will walk you through the process of deploying the RankPro landing page to GitHub Pages.
+This guide will walk you through deploying RankPro to GitHub Pages using Jekyll for simplified deployment.
 
 ## Prerequisites
 
 1. A GitHub account
 2. Git installed on your local machine
 3. Node.js and npm installed
+4. Ruby and Jekyll (optional for local testing)
 
 ## Step 1: Prepare Your Repository
 
@@ -20,96 +21,115 @@ cd your-repo-name
 
 3. Copy all your project files into this directory
 
-## Step 2: Configure for GitHub Pages
+## Step 2: Configure for Jekyll on GitHub Pages
 
-1. Install the gh-pages package:
+GitHub Pages automatically uses Jekyll to build your site. We've already added the required configuration files:
+
+1. `_config.yml` - Jekyll configuration
+2. `.nojekyll` - An empty file to ensure GitHub respects files starting with underscores
+3. `Gemfile` - Ruby dependencies for local Jekyll testing
+
+### Understanding the Jekyll Configuration
+
+The `_config.yml` file includes:
+
+```yaml
+# Site settings
+title: RankPro - AI-Powered SEO Platform
+description: Optimize your website's SEO with RankPro
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+
+# Build settings
+source: dist/public  # Important: This tells Jekyll to use our Vite output as source
+destination: _site
+```
+
+## Step 3: Build Your Site
+
+1. Build the React application:
+
+```bash
+npm run build
+```
+
+This will create the `dist/public` directory with your built assets, which Jekyll will use as its source.
+
+## Step 4: Deploy to GitHub Pages
+
+### Option 1: Using GitHub Actions (Recommended)
+
+1. Create a `.github/workflows` directory in your repository:
+
+```bash
+mkdir -p .github/workflows
+```
+
+2. Create a deployment workflow file `.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build
+        run: npm run build
+        
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/public # The folder the action should deploy
+          branch: gh-pages # The branch the action should deploy to
+```
+
+3. Commit and push these changes:
+
+```bash
+git add .
+git commit -m "Add GitHub Actions workflow for deployment"
+git push origin main
+```
+
+GitHub Actions will automatically build and deploy your site.
+
+### Option 2: Manual Deployment
+
+1. If you prefer to deploy manually, you can use the gh-pages package:
 
 ```bash
 npm install --save-dev gh-pages
 ```
 
-2. Create (or modify) a `.env` file to set the base URL path for GitHub Pages:
+2. Add these scripts to your package.json (you'll need to ask your instructor for this change):
 
-```
-# For GitHub Pages deployment
-VITE_BASE_URL=/your-repo-name/
-```
-
-3. Update your Vite config by manually adding a `base` configuration in `vite.config.ts`:
-
-```typescript
-export default defineConfig({
-  // Other config...
-  base: process.env.VITE_BASE_URL || '/',
-  // Rest of your configuration...
-});
+```json
+"predeploy": "npm run build",
+"deploy": "gh-pages -d dist/public"
 ```
 
-4. For routing to work properly with GitHub Pages, update your client-side routes to be aware of the base path.
-
-## Step 3: Set Up Deployment Scripts
-
-Create a file called `deploy.js` in your project root:
-
-```javascript
-// deploy.js
-import { exec } from 'child_process';
-import fs from 'fs';
-import path from 'path';
-
-// Build the application
-console.log('Building application...');
-exec('npm run build', (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Build error: ${error}`);
-    return;
-  }
-  console.log(stdout);
-  
-  // Create a deploy directory
-  const deployDir = path.resolve('deploy');
-  if (!fs.existsSync(deployDir)) {
-    fs.mkdirSync(deployDir);
-  }
-  
-  // Copy dist/public to deploy
-  console.log('Copying build files to deploy directory...');
-  fs.cpSync(path.resolve('dist/public'), deployDir, { recursive: true });
-  
-  // Add an empty .nojekyll file to tell GitHub to not treat this as a Jekyll site
-  fs.writeFileSync(path.join(deployDir, '.nojekyll'), '');
-  
-  // Deploy to GitHub Pages
-  console.log('Deploying to GitHub Pages...');
-  exec('npx gh-pages -d deploy', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Deployment error: ${error}`);
-      return;
-    }
-    console.log('Deployment successful!');
-    console.log(stdout);
-  });
-});
-```
-
-## Step 4: Deploy to GitHub Pages
-
-1. Add and commit your changes:
+3. Then deploy with:
 
 ```bash
-git add .
-git commit -m "Prepare for GitHub Pages deployment"
-git push origin main
+npm run deploy
 ```
-
-2. Run the deployment script:
-
-```bash
-node deploy.js
-```
-
-3. The site will be deployed to GitHub Pages and will be available at:
-   `https://yourusername.github.io/your-repo-name/`
 
 ## Step 5: Configure GitHub Pages Settings
 
@@ -119,25 +139,32 @@ node deploy.js
 4. Select the "gh-pages" branch and "/ (root)" folder
 5. Click "Save"
 
-## Troubleshooting
+## GitHub Actions Deployment (Detailed)
 
-If you encounter any issues, consider the following:
+GitHub Actions will:
+1. Trigger when you push to main
+2. Check out your code
+3. Set up Node.js
+4. Install dependencies
+5. Build your site
+6. Deploy to the gh-pages branch
 
-1. **404 errors for assets**: Ensure all your asset paths use relative URLs or are prefixed with the base URL.
+## Verify Your Deployment
 
-2. **Routing issues**: If using client-side routing, you might need to configure your router to work with GitHub Pages. Consider using hash-based routing for simpler deployment.
+After deployment, your site will be available at:
+`https://yourusername.github.io/your-repo-name/`
 
-3. **Custom domain**: If you want to use a custom domain, add a CNAME file to your deploy directory with your domain name.
+## Local Testing with Jekyll (Optional)
 
-## Updating Your Deployment
+If you want to test the Jekyll build locally:
 
-Whenever you make changes to your project:
-
-1. Commit and push your changes to GitHub
-2. Run the deployment script again:
+1. Install Ruby and Jekyll
+2. Run:
 
 ```bash
-node deploy.js
+bundle install
+bundle exec jekyll build
+bundle exec jekyll serve
 ```
 
-Your changes will be deployed to GitHub Pages automatically.
+This will serve your site locally at `http://localhost:4000`.

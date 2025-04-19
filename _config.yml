@@ -1,0 +1,38 @@
+# Jekyll configuration for GitHub Pages
+
+# Site settings
+title: RankPro - AI-Powered SEO Platform
+description: Optimize your website's SEO with RankPro, the leading AI-powered platform that helps you analyze, improve, and rank higher in search results.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+markdown: kramdown
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - README.md
+  - GITHUB_DEPLOYMENT.md
+  - deploy.js
+  - server/
+  - shared/
+  - drizzle.config.ts
+  - vite.config.ts
+  - postcss.config.js
+  - tailwind.config.ts
+  - tsconfig.json
+
+# Use the specified directories for Jekyll
+source: dist/public
+destination: _site
+
+# Keep files that start with an underscore
+keep_files:
+  - .git
+  - .gitignore
+  - CNAME
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
