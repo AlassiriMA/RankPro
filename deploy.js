@@ -1,15 +1,24 @@
-// deploy.js - Simple deployment script for GitHub Pages
+// deploy.js - Deployment script for GitHub Pages
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
-// Set NODE_OPTIONS to avoid the crypto.getRandomValues error
-process.env.NODE_OPTIONS = '--experimental-global-webcrypto';
+// Ensure we have crypto.getRandomValues
+if (typeof global.crypto === 'undefined') {
+  global.crypto = {
+    getRandomValues: function(buffer) {
+      for (let i = 0; i < buffer.length; i++) {
+        buffer[i] = Math.floor(Math.random() * 256);
+      }
+      return buffer;
+    }
+  };
+}
 
 try {
-  // Build the application
-  console.log('Building application...');
-  execSync('./build.sh', { stdio: 'inherit' });
+  // Run our build script
+  console.log('Building application using build.sh...');
+  execSync('chmod +x ./build.sh && ./build.sh', { stdio: 'inherit' });
   
   // Ensure dist/public directory exists
   const publicDir = path.resolve('dist/public');
@@ -18,14 +27,27 @@ try {
     process.exit(1);
   }
   
-  // Copy necessary files for GitHub Pages
-  console.log('Preparing for GitHub Pages...');
+  // Verify key files exist in the dist/public directory
+  console.log('Verifying build output...');
+  const requiredFiles = ['index.html', 'assets'];
+  for (const file of requiredFiles) {
+    if (!fs.existsSync(path.join(publicDir, file))) {
+      console.error(`Error: Required file/directory '${file}' not found in build output!`);
+      process.exit(1);
+    }
+  }
   
-  // Copy .nojekyll to the public directory
-  fs.copyFileSync('.nojekyll', path.join(publicDir, '.nojekyll'));
+  // Ensure GitHub Pages specific files exist
+  console.log('Ensuring GitHub Pages files exist...');
+  if (!fs.existsSync(path.join(publicDir, '.nojekyll'))) {
+    console.log('Creating .nojekyll file in dist/public...');
+    fs.writeFileSync(path.join(publicDir, '.nojekyll'), '');
+  }
   
-  // Copy CNAME to the public directory
-  fs.copyFileSync('CNAME', path.join(publicDir, 'CNAME'));
+  if (!fs.existsSync(path.join(publicDir, 'CNAME'))) {
+    console.log('Copying CNAME to dist/public...');
+    fs.copyFileSync('CNAME', path.join(publicDir, 'CNAME'));
+  }
   
   // Deploy using gh-pages
   console.log('Deploying to GitHub Pages...');
