@@ -77,7 +77,7 @@ export default function FeaturesSection() {
           {features.map((feature, index) => (
             <div 
               key={index} 
-              className={`card-hover bg-white rounded-xl p-8 shadow-sm border border-gray-100 transition-all duration-700 ${feature.delay} ${
+              className={`card-hover bg-white rounded-xl p-8 shadow-sm border border-gray-100 transition-all duration-700 hover:border-primary/20 ${feature.delay} ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
@@ -88,9 +88,10 @@ export default function FeaturesSection() {
               <p className="text-gray-600 mb-6">
                 {feature.description}
               </p>
-              <a href="#" className="inline-flex items-center text-primary hover:text-primary-dark font-medium group">
+              <a href="#" className="inline-flex items-center text-primary hover:text-primary-dark font-medium group relative pb-0.5">
                 <span>Learn more</span>
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary/20 group-hover:w-full transition-all duration-300"></span>
               </a>
             </div>
           ))}

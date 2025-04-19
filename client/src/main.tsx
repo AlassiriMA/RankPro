@@ -11,11 +11,13 @@ style.textContent = `
   }
   
   .bg-gradient {
-    background: linear-gradient(135deg, #4e46e6 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #4834e4 0%, #7209cf 100%);
+    box-shadow: 0 10px 25px -10px rgba(72, 52, 228, 0.4);
   }
   
   .bg-gradient-light {
-    background: linear-gradient(135deg, rgba(78, 70, 230, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+    background: linear-gradient(135deg, rgba(72, 52, 228, 0.08) 0%, rgba(114, 9, 207, 0.08) 100%);
+    border: 1px solid rgba(72, 52, 228, 0.12);
   }
   
   .transition-all {
@@ -94,18 +96,27 @@ style.textContent = `
   }
   
   .card-hover {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
   }
   
   .card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.1), 0 10px 10px -5px rgba(79, 70, 229, 0.04);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px -10px rgba(72, 52, 228, 0.25);
+    border-color: rgba(72, 52, 228, 0.15);
   }
   
   /* Custom button effects */
   .btn-glow {
     position: relative;
     z-index: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, box-shadow;
+  }
+  
+  .btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(72, 52, 228, 0.4);
   }
   
   .btn-glow::after {
@@ -116,8 +127,13 @@ style.textContent = `
     transform: translateX(-50%);
     width: 80%;
     height: 12px;
-    background: radial-gradient(ellipse at center, rgba(79, 70, 229, 0.3) 0%, rgba(79, 70, 229, 0) 70%);
+    background: radial-gradient(ellipse at center, rgba(72, 52, 228, 0.4) 0%, rgba(114, 9, 207, 0) 70%);
     z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .btn-glow:hover::after {
+    opacity: 0.8;
   }
   
   @keyframes rotate {

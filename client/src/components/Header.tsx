@@ -50,10 +50,10 @@ export default function Header() {
               <a 
                 key={index}
                 href={`#${item.toLowerCase()}`} 
-                className="text-gray-600 hover:text-primary font-medium relative group transition-all duration-300"
+                className="text-gray-700 hover:text-primary font-medium relative group transition-all duration-300"
               >
                 {item}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
               </a>
             ))}
           </nav>
@@ -62,7 +62,7 @@ export default function Header() {
           <div className="hidden md:block">
             <a 
               href="#cta" 
-              className="btn-glow inline-flex items-center justify-center px-5 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/60 transition-all duration-300"
+              className="btn-glow inline-flex items-center justify-center px-5 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/60 transition-all duration-300"
             >
               Start Free Trial
             </a>
@@ -101,16 +101,17 @@ export default function Header() {
               <a 
                 key={index}
                 href={`#${item.toLowerCase()}`} 
-                className="text-gray-600 hover:text-primary font-medium block px-4 py-2.5 rounded-md hover:bg-gray-50 transition-all duration-300" 
+                className="text-gray-700 hover:text-primary font-medium block px-4 py-2.5 rounded-md hover:bg-gray-50 transition-all duration-300 relative overflow-hidden group" 
                 onClick={() => setMobileMenuOpen(false)}
               >
-                {item}
+                <span className="relative z-10">{item}</span>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </a>
             ))}
             <div className="pt-2">
               <a 
                 href="#cta" 
-                className="bg-primary hover:bg-primary/90 text-white font-medium block px-4 py-3 rounded-md text-center shadow-sm" 
+                className="bg-gradient hover:opacity-95 text-white font-medium block px-4 py-3 rounded-md text-center shadow-md transform transition-transform duration-300 hover:scale-[1.02]" 
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Start Free Trial

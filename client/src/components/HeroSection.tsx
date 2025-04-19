@@ -63,16 +63,16 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-5">
               <a 
                 href="#cta" 
-                className="btn-glow w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-gradient hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300"
+                className="btn-glow w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-gradient hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/60 transition-all duration-300 hover:scale-[1.03]"
               >
                 <span>Start Free Trial</span>
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a 
                 href="#" 
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border border-gray-200 rounded-lg shadow-sm text-base font-medium text-gray-800 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border border-gray-200 rounded-lg shadow-sm text-base font-medium text-gray-800 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/60 transition-all duration-300 hover:border-primary/30 group"
               >
-                <Play className="mr-2 h-4 w-4 text-primary" />
+                <Play className="mr-2 h-4 w-4 text-primary transition-transform duration-300 group-hover:scale-110" />
                 <span>Watch Demo</span>
               </a>
             </div>
