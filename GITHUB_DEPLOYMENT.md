@@ -47,13 +47,15 @@ destination: _site
 
 ## Step 3: Build Your Site
 
-1. Build the React application:
+1. Build the React application using the enhanced build script:
 
 ```bash
-npm run build
+./build.sh
 ```
 
-This will create the `dist/public` directory with your built assets, which Jekyll will use as its source.
+This script handles common build issues (including the crypto.getRandomValues error) and creates the `dist/public` directory with your built assets, which Jekyll will use as its source.
+
+> **Note:** If you encounter build errors related to crypto, see the detailed documentation in [CRYPTO_POLYFILL.md](./CRYPTO_POLYFILL.md).
 
 ## Step 4: Deploy to GitHub Pages
 
@@ -85,13 +87,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           
       - name: Install dependencies
         run: npm ci
         
       - name: Build
-        run: npm run build
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
         
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
@@ -118,18 +122,17 @@ GitHub Actions will automatically build and deploy your site.
 npm install --save-dev gh-pages
 ```
 
-2. Add these scripts to your package.json (you'll need to ask your instructor for this change):
-
-```json
-"predeploy": "npm run build",
-"deploy": "gh-pages -d dist/public"
-```
-
-3. Then deploy with:
+2. Use our pre-configured deploy.js script that handles both building and deployment:
 
 ```bash
-npm run deploy
+node deploy.js
 ```
+
+This script automatically:
+- Applies the crypto polyfill for build compatibility
+- Builds the application using build.sh
+- Copies necessary files (.nojekyll, CNAME)
+- Deploys to the gh-pages branch
 
 ## Step 5: Configure GitHub Pages Settings
 
@@ -141,13 +144,15 @@ npm run deploy
 
 ## GitHub Actions Deployment (Detailed)
 
-GitHub Actions will:
-1. Trigger when you push to main
-2. Check out your code
-3. Set up Node.js
-4. Install dependencies
-5. Build your site
-6. Deploy to the gh-pages branch
+Our enhanced GitHub Actions workflow:
+1. Triggers when you push to main
+2. Checks out your code
+3. Sets up Node.js 18 (required for modern web applications)
+4. Installs dependencies
+5. Builds your site using the custom build.sh script with crypto polyfill
+6. Verifies the build output with additional validation steps
+7. Deploys to the gh-pages branch
+8. Preserves custom domain settings automatically
 
 ## Verify Your Deployment
 

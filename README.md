@@ -74,7 +74,9 @@ This project is configured for easy deployment to GitHub Pages using Jekyll inte
 
 #### Option 1: Using the Provided Script (Recommended)
 
-This project includes a `build.sh` script that handles the build process with the necessary Node.js flags to fix common build issues:
+This project includes a `build.sh` script that handles the build process and addresses the common crypto.getRandomValues error that can occur during builds:
+
+> **Note:** The build script includes a crypto polyfill that resolves the error `TypeError: crypto.getRandomValues is not a function` which can happen in some Node.js environments. For detailed information about this solution, see [CRYPTO_POLYFILL.md](./CRYPTO_POLYFILL.md).
 
 1. Initialize Git in your project (if not already done):
 
@@ -112,6 +114,8 @@ node deploy.js
 
 This project is set up with GitHub Actions workflow in `.github/workflows/deploy.yml` for automated deployment:
 
+> **Note:** The GitHub Actions workflow has been configured to use Node.js 18 and includes verification steps to ensure all required files are properly generated before deployment.
+
 1. Push your code to GitHub:
 
 ```bash
@@ -121,8 +125,10 @@ git push
 ```
 
 2. GitHub Actions will automatically:
-   - Build your site
+   - Build your site using the enhanced build script (with crypto polyfill)
+   - Verify the build artifacts 
    - Deploy it to the gh-pages branch
+   - Preserve your custom domain settings
 
 ### Step 3: Setting Up a Custom Domain
 
