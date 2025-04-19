@@ -1,56 +1,39 @@
-// deploy.js
-import { exec } from 'child_process';
+// deploy.js - Simple deployment script for GitHub Pages
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-// Get directory name in ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Set NODE_OPTIONS to avoid the crypto.getRandomValues error
+process.env.NODE_OPTIONS = '--experimental-global-webcrypto';
 
-// Build the application
-console.log('Building application...');
-exec('npm run build', (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Build error: ${error}`);
-    return;
-  }
-  console.log(stdout);
+try {
+  // Build the application
+  console.log('Building application...');
+  execSync('npm run build', { stdio: 'inherit' });
   
-  // Create a deploy directory
-  const deployDir = path.resolve(__dirname, 'deploy');
-  if (!fs.existsSync(deployDir)) {
-    fs.mkdirSync(deployDir);
-  } else {
-    // Clear the directory
-    fs.rmSync(deployDir, { recursive: true, force: true });
-    fs.mkdirSync(deployDir);
+  // Ensure dist/public directory exists
+  const publicDir = path.resolve('dist/public');
+  if (!fs.existsSync(publicDir)) {
+    console.error('Error: Build directory not found!');
+    process.exit(1);
   }
   
-  // Copy dist/public to deploy
-  console.log('Copying build files to deploy directory...');
-  fs.cpSync(path.resolve(__dirname, 'dist/public'), deployDir, { recursive: true });
+  // Copy necessary files for GitHub Pages
+  console.log('Preparing for GitHub Pages...');
   
-  // Add an empty .nojekyll file to tell GitHub to not treat this as a Jekyll site
-  fs.writeFileSync(path.join(deployDir, '.nojekyll'), '');
+  // Copy .nojekyll to the public directory
+  fs.copyFileSync('.nojekyll', path.join(publicDir, '.nojekyll'));
   
-  // Create a simple index.html redirect if needed for SPA routing
-  const indexPath = path.join(deployDir, 'index.html');
-  if (fs.existsSync(indexPath)) {
-    const content = fs.readFileSync(indexPath, 'utf8');
-    
-    // Add a 404.html that's identical to index.html for SPA routing
-    fs.writeFileSync(path.join(deployDir, '404.html'), content);
-  }
+  // Copy CNAME to the public directory
+  fs.copyFileSync('CNAME', path.join(publicDir, 'CNAME'));
   
-  // Deploy to GitHub Pages
+  // Deploy using gh-pages
   console.log('Deploying to GitHub Pages...');
-  exec('npx gh-pages -d deploy', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Deployment error: ${error}`);
-      return;
-    }
-    console.log('Deployment successful!');
-    console.log(stdout);
-  });
-});
+  execSync('npx gh-pages -d dist/public', { stdio: 'inherit' });
+  
+  console.log('✓ Deployment successful!');
+  console.log('Your site will be available at: https://landingpage.alassiri.nl');
+} catch (error) {
+  console.error('Deployment failed:', error.message);
+  process.exit(1);
+}

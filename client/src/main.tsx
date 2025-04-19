@@ -1,3 +1,4 @@
+import "./crypto-polyfill"; // Import the polyfill first
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
