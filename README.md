@@ -52,12 +52,15 @@ A modern, SEO-optimized static landing page for an SEO SaaS business with profes
   - Large devices (desktops)
   - Extra large devices (large desktops)
 
-## 🚀 Deployment to GitHub Pages
+## 🚀 Deployment to GitHub Pages with Jekyll
+
+This project is configured for easy deployment to GitHub Pages using Jekyll integration for seamless custom domain support.
 
 ### Prerequisites
 
 1. A GitHub account
 2. Git installed on your local machine
+3. Node.js installed locally
 
 ### Step 1: Create a GitHub Repository
 
@@ -67,38 +70,11 @@ A modern, SEO-optimized static landing page for an SEO SaaS business with profes
 4. Choose to make it public or private
 5. Click "Create repository"
 
-### Step 2: Prepare for Deployment
+### Step 2: Build and Deploy
 
-1. Add the following to your `package.json` file:
+#### Option 1: Using the Provided Script (Recommended)
 
-```json
-{
-  "homepage": "https://yourusername.github.io/repository-name",
-  "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-  }
-}
-```
-
-2. Install the GitHub Pages package:
-
-```bash
-npm install --save-dev gh-pages
-```
-
-3. Configure the Vite build output directory in `vite.config.ts`:
-
-```typescript
-export default defineConfig({
-  // ... other config
-  build: {
-    outDir: 'dist',
-  },
-});
-```
-
-### Step 3: Deploy to GitHub Pages
+This project includes a `build.sh` script that handles the build process with the necessary Node.js flags to fix common build issues:
 
 1. Initialize Git in your project (if not already done):
 
@@ -120,25 +96,76 @@ git remote add origin https://github.com/yourusername/repository-name.git
 git push -u origin main
 ```
 
-4. Deploy to GitHub Pages:
+4. Run the build script:
 
 ```bash
-npm run deploy
+./build.sh
 ```
 
-5. Your site will be available at: `https://yourusername.github.io/repository-name`
+5. Deploy to GitHub Pages using the deploy.js script:
+
+```bash
+node deploy.js
+```
+
+#### Option 2: Using GitHub Actions (Automated)
+
+This project is set up with GitHub Actions workflow in `.github/workflows/deploy.yml` for automated deployment:
+
+1. Push your code to GitHub:
+
+```bash
+git add .
+git commit -m "Update site"
+git push
+```
+
+2. GitHub Actions will automatically:
+   - Build your site
+   - Deploy it to the gh-pages branch
+
+### Step 3: Setting Up a Custom Domain
+
+1. Make sure the CNAME file contains your domain:
+```
+landingpage.alassiri.nl
+```
+
+2. In your GitHub repository:
+   - Go to Settings > Pages
+   - Under "Custom domain", enter your domain name
+   - Click "Save"
+   - Ensure "Enforce HTTPS" is checked
+
+3. Add these DNS records with your domain registrar:
+   - Type: A, Name: @, Value: 185.199.108.153
+   - Type: A, Name: @, Value: 185.199.109.153
+   - Type: A, Name: @, Value: 185.199.110.153
+   - Type: A, Name: @, Value: 185.199.111.153
+   - Type: CNAME, Name: www, Value: yourusername.github.io.
+
+### Step 4: Verify Your Deployment
+
+After deployment, your site will be available at:
+- Custom domain: `https://landingpage.alassiri.nl/`
+- Default GitHub Pages URL: `https://yourusername.github.io/repository-name/`
 
 ## 🔄 Updating Your Site
 
 1. Make your changes to the code
-2. Build and test locally:
+2. Test locally:
 
 ```bash
-npm run build
-npm run preview
+npm run dev
 ```
 
-3. Commit and push your changes:
+3. Build and verify changes:
+
+```bash
+./build.sh
+```
+
+4. Commit and push your changes:
 
 ```bash
 git add .
@@ -146,10 +173,11 @@ git commit -m "Update site content"
 git push
 ```
 
-4. Redeploy to GitHub Pages:
+5. If using GitHub Actions, the site will deploy automatically.
+   If not, redeploy manually:
 
 ```bash
-npm run deploy
+node deploy.js
 ```
 
 ## 📝 License
