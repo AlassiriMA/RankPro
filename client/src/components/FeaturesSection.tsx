@@ -98,7 +98,7 @@ export default function FeaturesSection() {
         </div>
         
         {/* Additional feature highlight */}
-        <div className={`mt-20 bg-gradient-light rounded-2xl overflow-hidden shadow-sm border border-primary/10 transition-all duration-700 ${
+        <div className={`mt-20 bg-gradient-light rounded-2xl overflow-hidden shadow-md border border-primary/15 transition-all duration-700 hover:shadow-lg hover:border-primary/30 ${
           isVisible ? 'opacity-100 translate-y-0 delay-300' : 'opacity-0 translate-y-10'
         }`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -122,10 +122,10 @@ export default function FeaturesSection() {
               </ul>
               <a 
                 href="#cta" 
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-md text-sm font-medium text-white bg-gradient hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] group"
               >
                 <span>Try this feature</span>
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </div>
             <div className="hidden lg:block relative min-h-[300px]">
