@@ -1,0 +1,119 @@
+Build a static single-page web app as a live demo landing page for an SEO SaaS business.
+This will be hosted at: https://demo.alassiri.nl/seo It should focus on:
+
+Outstanding UI/UX design
+
+Clear product messaging
+
+High SEO standards (performance, accessibility, metadata)
+
+Ready to serve as a demo for a real SaaS product
+
+This is a design-focused marketing page, not a functional SaaS app. No signup/login features needed — only front-end design.
+
+🎯 Business Concept
+Product Name: RankPro (or use a placeholder)
+
+Tagline:
+“AI-Powered SEO Insights That Rank You Higher — Faster”
+
+🖌️ Page Structure & Content
+🔝 Hero Section
+Headline: “Your Path to Page One Starts Here”
+
+Subheadline: “Analyze, optimize, and dominate search results with RankPro.”
+
+CTA Button 1: Start Free Trial
+
+CTA Button 2: Watch Demo
+
+Add product screenshot or sleek dashboard mockup illustration
+
+Stylish gradient or background animation
+
+🧠 Section 1: What It Does
+3 columns or feature cards:
+
+Audit Websites in Seconds
+
+Track Keyword Rankings
+
+Get Instant SEO Fixes
+
+Each with a minimal icon and short description
+
+📊 Section 2: Dashboard Preview
+A large image or component mockup of what the dashboard looks like
+
+Caption: “Get actionable insights at a glance”
+
+Optional: animated GIF or scroll simulation
+
+💡 Section 3: Why RankPro?
+List key benefits:
+
+AI-Powered Suggestions
+
+100% Mobile Optimization
+
+Real-Time Alerts
+
+One-click Reports
+
+Include visual cards or checkmark list
+
+📈 Section 4: SEO Metrics
+Fake/mock stats:
+
++300% Organic Traffic
+
+98 Lighthouse Score
+
+5x Faster Optimization
+
+Bar charts or stat boxes to show credibility
+
+💬 Section 5: Testimonials
+Carousel or quote cards:
+
+“RankPro saved us weeks of manual SEO work.”
+
+“The UI is clean, fast, and beautifully designed.”
+
+Add user avatars or business logos
+
+📦 Section 6: Pricing (Optional)
+3 pricing cards (Free, Pro, Enterprise)
+
+Emphasize Start for Free
+
+📣 CTA Section (Repeat)
+Headline: “Ready to Boost Your Rankings?”
+
+Button: Get Started Now
+
+🔗 Footer
+Quick links (Features, Docs, Contact)
+
+Social icons
+
+Copyright
+
+📦 Tech & Design Requirements
+Built with HTML, TailwindCSS, and minimal JavaScript
+
+Fully responsive
+
+Include:
+
+Meta tags
+
+Open Graph
+
+Twitter Cards
+
+JSON-LD schema (type: SoftwareApplication)
+
+Fast load time & optimized assets
+
+Ready to host on GitHub Pages as a static page

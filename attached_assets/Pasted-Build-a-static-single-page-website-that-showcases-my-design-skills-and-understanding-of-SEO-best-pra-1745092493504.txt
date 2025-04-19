@@ -1,0 +1,109 @@
+Build a static single-page website that showcases my design skills and understanding of SEO best practices.
+
+The site should:
+
+Have an outstanding, modern, and elegant design
+
+Be fully responsive across all devices
+
+Use clean HTML semantics (e.g., header, main, article, section, footer)
+
+Be highly accessible and keyboard-navigable
+
+Include meta tags, OpenGraph tags, alt attributes, schema.org, etc.
+
+Have excellent core web vitals (fast, lightweight, optimized images, no layout shifts)
+
+💡 The content and layout should follow this structure:
+
+🌟 Page Title: "Rank Higher, Convert Better: SEO Design That Works"
+🟢 Hero Section
+Headline:
+“Beautiful Design Meets Search Engine Performance”
+
+Subheadline:
+“A perfectly optimized static page, designed to impress users and Google alike.”
+
+CTA Button: "Explore the Design"
+
+Background: sleek gradient or large SVG illustration
+
+Include a testimonial quote in a badge or card format (e.g., “This is how SEO pages should look!”)
+
+🎨 Section 1: Why Design Matters in SEO
+Headline:
+“Design is Not Just Looks – It’s Structure, Speed, and Experience”
+
+Content:
+
+Good SEO design isn't just about keywords—it's about how your content is structured, displayed, and perceived. From font size to contrast ratio, everything affects usability and rankings.
+
+Use icons with tooltips to highlight:
+
+Mobile-first layout
+
+Semantic HTML
+
+Fast loading
+
+Optimized images
+
+🧱 Section 2: Built with SEO in Mind
+3 feature cards with icons:
+
+✅ Semantic Layout: Every section and element is logically structured.
+
+⚡ Performance Focused: Minimal scripts, lazy-loaded assets.
+
+🔍 Crawl-Ready: Full meta, OpenGraph, and structured data.
+
+🧠 Section 3: SEO-Driven Design Principles
+Grid layout explaining:
+
+Visual hierarchy
+
+Accessibility (ARIA roles, alt tags)
+
+Internal linking
+
+Content-first approach
+
+📈 Section 4: Lighthouse Score Snapshot
+Mock display of a perfect Lighthouse report:
+
+Performance: 100
+
+Accessibility: 100
+
+Best Practices: 100
+
+SEO: 100
+
+Label it as: “How this site performs out of the box”
+
+💬 Section 5: What Experts Say
+Carousel or card layout of expert quotes (fabricated for demo):
+
+“One of the cleanest and most effective SEO designs I've reviewed this year.”
+“This sets the standard for SEO portfolios.”
+
+🔗 Footer
+Internal links:
+
+About the Designer
+
+View the Code (GitHub)
+
+Contact Me
+
+Copyright & Accessibility Statement
+
+🎯 Final Notes:
+Use only HTML, CSS (Tailwind or custom), and minimal vanilla JS
+
+No frameworks or heavy libraries
+
+Fully deployable as a GitHub Pages or static S3 site
+
+The code should be clean, well-commented, and production-ready
+
