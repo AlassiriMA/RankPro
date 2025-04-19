@@ -4,7 +4,8 @@
 title: RankPro - AI-Powered SEO Platform
 description: Optimize your website's SEO with RankPro, the leading AI-powered platform that helps you analyze, improve, and rank higher in search results.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://landingpage.alassiri.nl" # the base hostname & protocol for your site
+domain: landingpage.alassiri.nl
 
 # Build settings
 markdown: kramdown

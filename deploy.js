@@ -9,7 +9,7 @@ process.env.NODE_OPTIONS = '--experimental-global-webcrypto';
 try {
   // Build the application
   console.log('Building application...');
-  execSync('npm run build', { stdio: 'inherit' });
+  execSync('./build.sh', { stdio: 'inherit' });
   
   // Ensure dist/public directory exists
   const publicDir = path.resolve('dist/public');

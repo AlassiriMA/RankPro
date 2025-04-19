@@ -21,7 +21,9 @@ jobs:
         run: npm ci
         
       - name: Build
-        run: npm run build
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
         
       - name: Setup Jekyll
         uses: ruby/setup-ruby@v1
